@@ -1,1 +1,30 @@
-Salesfoce Relationships
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="header"></div>
+    <main>
+        <section id="admin" class="active">
+            <h2>Hello</h2>
+            <p>Welcome to the admin page!</p>
+        </section>
+    </main>
+    <div id="footer"></div>
+
+    <script>
+        function loadHTML(elementId, url) {
+            fetch(url)
+                .then(response => response.text())
+                .then(data => document.getElementById(elementId).innerHTML = data);
+        }
+
+        loadHTML('header', 'header.html');
+        loadHTML('footer', 'footer.html');
+    </script>
+</body>
+</html>
