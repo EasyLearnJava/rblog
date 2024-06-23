@@ -1,154 +1,240 @@
-  body {
-            font-family: Arial, sans-serif;
-            margin: 0;
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #333;
+    background-color: #f9f9f9;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header {
+    background-color: #4A90E2;
+    color: #fff;
+    text-align: center;
+    padding: 20px 20px;
+}
+
+header h1 {
+    font-size: 2.5em;
+    margin: 0;
+}
+
+nav {
+    background-color: #2C3E50;
+    color: #fff;
+    padding: 10px 20px;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+nav ul li {
+    position: relative;
+    flex: 1 1 auto;
+    text-align: center;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px;
+    display: block;
+}
+
+nav ul li ul.submenu {
+    display: none;
+    position: absolute;
+    background-color: #34495E;
+    top: 40px;
+    left: 0;
+    padding: 0;
+    list-style: none;
+    margin: 0;
+    min-width: 200px;
+}
+
+nav ul li:hover ul.submenu {
+    display: block;
+}
+
+nav ul li ul.submenu li {
+    position: relative;
+}
+
+nav ul li ul.submenu li ul.submenu {
+    top: 0;
+    left: 200px;
+    display: none;
+}
+
+nav ul li ul.submenu li:hover ul.submenu {
+    display: block;
+}
+
+nav ul li.has-submenu > a::after {
+    content: ' ▼';
+    font-size: 0.8em;
+    color: #fff;
+    display: inline-block;
+}
+
+nav ul li ul.submenu li.has-submenu > a::after {
+    content: ' ►';
+    font-size: 0.8em;
+    color: #fff;
+    display: inline-block;
+}
+
+main {
+    padding: 20px;
+    flex: 1;
+}
+
+main section {
+    display: none;
+    background-color: #fff;
+    margin: 20px 0;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+main section.active {
+    display: block;
+}
+
+main section h2 {
+    font-size: 1.8em;
+    margin: 0 0 10px;
+}
+
+footer {
+    background-color: #34495E;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+    margin-top: auto;
+}
+
+footer h2 {
+    font-size: 2em;
+    margin: 0 0 10px;
+}
+
+footer p {
+    font-size: 1.2em;
+}
+
+/* Relationship Component Styles */
+.relationship-component {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.relationship-component h4 {
+    margin-top: 0;
+}
+
+.relationship-component ul {
+    list-style-type: disc;
+    margin-left: 20px;
+    padding-left: 0;
+}
+
+.relationship-component ul li {
+    margin-bottom: 10px;
+}
+
+ .container {
+            padding: 1rem;
+            margin: 0 auto;
+        }
+        .relationship-list {
+            list-style-type: none;
             padding: 0;
-            color: #333;
-            background-color: #f9f9f9;
+        }
+        .relationship-list > li {
+            margin-bottom: 20px;
+        }
+        .relationship-list > li > ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+        .relationship-list > li > ul > li {
+            margin-bottom: 10px;
+        }
+        .placeholders {
             display: flex;
             flex-direction: column;
-            min-height: 100vh;
+            gap: .5rem;
+            justify-content: center;
+            margin-top: .2rem;
         }
-
-        header {
-            background-color: #4A90E2;
-            color: #fff;
-            text-align: center;
-            padding: 20px 20px;
-        }
-
-        header h1 {
-            font-size: 2.5em;
-            margin: 0;
-        }
-
-        header p {
-            font-size: 1.2em;
-        }
-
-        button.cta {
-            background-color: #ffeb3b;
-            color: #333;
-            border: none;
-            padding: 15px 30px;
-            font-size: 1em;
-            cursor: pointer;
-            margin-top: 20px;
-        }
-
-        nav {
-            background-color: #2C3E50;
-            color: #fff;
-            padding: 10px 20px;
-        }
-
-        nav ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-            justify-content: space-around;
-        }
-
-        nav ul li {
-            position: relative;
-        }
-
-        nav ul li a {
-            color: #fff;
-            text-decoration: none;
-            padding: 10px;
-            display: block;
-        }
-
-        nav ul li ul.submenu {
-            display: none;
-            position: absolute;
-            background-color: #34495E;
-            top: 40px;
-            left: 0;
-            padding: 0;
-            list-style: none;
-            margin: 0;
-            min-width: 200px;
-        }
-
-        nav ul li:hover ul.submenu {
-            display: block;
-        }
-
-        nav ul li ul.submenu li {
-            position: relative;
-        }
-
-        nav ul li ul.submenu li ul.submenu {
-            top: 0;
-            left: 200px;
-            display: none;
-        }
-
-        nav ul li ul.submenu li:hover ul.submenu {
-            display: block;
-        }
-
-        nav ul li.has-submenu > a::after {
-            content: ' ▼';
-            font-size: 0.8em;
-            color: #fff;
-            display: inline-block;
-        }
-
-        nav ul li ul.submenu li.has-submenu > a::after {
-            content: ' ►';
-            font-size: 0.8em;
-            color: #fff;
-            display: inline-block;
-        }
-
-        main {
-            padding: 20px;
+        .placeholder {
             flex: 1;
+            background-color: #e0e0e0;
+            padding: .5rem;
+            text-align: left;
+            border-radius: 5px;
+        }
+        .placeholder h4 {
+            margin-top: 0;
         }
 
-        main section {
-            display: none;
-            background-color: #fff;
-            margin: 20px 0;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
+/* Responsive Design */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 1.8em;
+    }
 
-        main section.active {
-            display: block;
-        }
+    nav ul {
+        flex-direction: column;
+        align-items: flex-start;
+    }
 
-        main section h2 {
-            font-size: 1.8em;
-            margin: 0 0 10px;
-        }
+    nav ul li {
+        text-align: left;
+    }
 
-        footer {
-            background-color: #34495E;
-            color: #fff;
-            text-align: center;
-            padding: 20px;
-            margin-top: auto;
-        }
+    nav ul li ul.submenu {
+        position: static;
+        min-width: 100%;
+    }
 
-        footer h2 {
-            font-size: 2em;
-            margin: 0 0 10px;
-        }
+    nav ul li ul.submenu li ul.submenu {
+        left: 0;
+    }
+}
 
-        footer p {
-            font-size: 1.2em;
-        }
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 1.5em;
+    }
 
-        footer button.cta {
-            background-color: #ffeb3b;
-            color: #333;
-            border: none;
-            padding: 15px 30px;
-            font-size: 1em;
-            cursor: pointer;
-            margin-top: 20px;
-        }
+    nav ul li a {
+        padding: 10px 5px;
+    }
+
+    main section {
+        padding: 15px;
+    }
+
+    footer h2 {
+        font-size: 1.5em;
+    }
+
+    footer p {
+        font-size: 1em;
+    }
+}
