@@ -3,63 +3,263 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Blog</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Innovative Website</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            background-color: #f9f9f9;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: #4A90E2;
+            color: #fff;
+            text-align: center;
+            padding: 20px 20px;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin: 0;
+        }
+
+        header p {
+            font-size: 1.2em;
+        }
+
+        button.cta {
+            background-color: #ffeb3b;
+            color: #333;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1em;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        nav {
+            background-color: #2C3E50;
+            color: #fff;
+            padding: 10px 20px;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        nav ul li {
+            position: relative;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px;
+            display: block;
+        }
+
+        nav ul li ul.submenu {
+            display: none;
+            position: absolute;
+            background-color: #34495E;
+            top: 40px;
+            left: 0;
+            padding: 0;
+            list-style: none;
+            margin: 0;
+            min-width: 200px;
+        }
+
+        nav ul li:hover ul.submenu {
+            display: block;
+        }
+
+        nav ul li ul.submenu li {
+            position: relative;
+        }
+
+        nav ul li ul.submenu li ul.submenu {
+            top: 0;
+            left: 200px;
+            display: none;
+        }
+
+        nav ul li ul.submenu li:hover ul.submenu {
+            display: block;
+        }
+
+        nav ul li.has-submenu > a::after {
+            content: ' ▼';
+            font-size: 0.8em;
+            color: #fff;
+            display: inline-block;
+        }
+
+        nav ul li ul.submenu li.has-submenu > a::after {
+            content: ' ►';
+            font-size: 0.8em;
+            color: #fff;
+            display: inline-block;
+        }
+
+        main {
+            padding: 20px;
+            flex: 1;
+        }
+
+        main section {
+            display: none;
+            background-color: #fff;
+            margin: 20px 0;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        main section.active {
+            display: block;
+        }
+
+        main section h2 {
+            font-size: 1.8em;
+            margin: 0 0 10px;
+        }
+
+        footer {
+            background-color: #34495E;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            margin-top: auto;
+        }
+
+        footer h2 {
+            font-size: 2em;
+            margin: 0 0 10px;
+        }
+
+        footer p {
+            font-size: 1.2em;
+        }
+
+        footer button.cta {
+            background-color: #ffeb3b;
+            color: #333;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1em;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
     <header>
-        <div class="logo">My Blog</div>
-        <nav>
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Categories</a></li>
-                <li><a href="#">Contact</a></li>
-                <li><a href="#">Login/Register</a></li>
-            </ul>
-        </nav>
+        <h1>Discover the Future of Innovation and Creativity</h1>
     </header>
+    <nav>
+        <ul>
+            <li><a href="#" onclick="showSection('home')">Home</a></li>
+            <li class="has-submenu">
+                <a href="#" onclick="showSection('innovate')">Innovate</a>
+                <ul class="submenu">
+                    <li class="has-submenu">
+                        <a href="#" onclick="showSection('tech-trends')">Tech Trends</a>
+                        <ul class="submenu">
+                            <li><a href="#" onclick="showSection('admin')">Admin</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#" onclick="showSection('future-insights')">Future Insights</a></li>
+                    <li><a href="#" onclick="showSection('innovator-stories')">Innovator Stories</a></li>
+                </ul>
+            </li>
+            <li class="has-submenu">
+                <a href="#" onclick="showSection('create')">Create</a>
+                <ul class="submenu">
+                    <li><a href="#" onclick="showSection('art-design')">Art & Design</a></li>
+                    <li><a href="#" onclick="showSection('creative-projects')">Creative Projects</a></li>
+                    <li><a href="#" onclick="showSection('diy-guides')">DIY Guides</a></li>
+                </ul>
+            </li>
+            <li class="has-submenu">
+                <a href="#" onclick="showSection('connect')">Connect</a>
+                <ul class="submenu">
+                    <li><a href="#" onclick="showSection('community-forum')">Community Forum</a></li>
+                    <li><a href="#" onclick="showSection('events-meetups')">Events & Meetups</a></li>
+                    <li><a href="#" onclick="showSection('expert-talks')">Expert Talks</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
     <main>
-        <section class="featured-blogs">
-            <h2>Featured Blogs</h2>
-            <article>
-                <h3>Blog Title 1</h3>
-                <p>Blog summary...</p>
-                <a href="#">Read more</a>
-            </article>
-            <article>
-                <h3>Blog Title 2</h3>
-                <p>Blog summary...</p>
-                <a href="#">Read more</a>
-            </article>
+        <section id="home" class="active">
+            <h2>Welcome to Our Innovative Website</h2>
+            <p>Explore the site through our main sections: Innovate, Create, and Connect. Click on the menu items to discover more!</p>
         </section>
-        <aside>
-            <div class="search-bar">
-                <input type="text" placeholder="Search...">
-            </div>
-            <div class="recent-posts">
-                <h2>Recent Posts</h2>
-                <ul>
-                    <li><a href="#">Post 1</a></li>
-                    <li><a href="#">Post 2</a></li>
-                </ul>
-            </div>
-            <div class="popular-tags">
-                <h2>Popular Tags</h2>
-                <ul>
-                    <li><a href="#">Tag1</a></li>
-                    <li><a href="#">Tag2</a></li>
-                </ul>
-            </div>
-        </aside>
+        <section id="tech-trends">
+            <h2>Tech Trends</h2>
+            <p>"Technology is best when it brings people together." – Matt Mullenweg</p>
+        </section>
+        <section id="admin">
+            <h2>Admin</h2>
+            <p>"Efficiency is doing things right; effectiveness is doing the right things." – Peter Drucker</p>
+        </section>
+        <section id="future-insights">
+            <h2>Future Insights</h2>
+            <p>"The best way to predict the future is to invent it." – Alan Kay</p>
+        </section>
+        <section id="innovator-stories">
+            <h2>Innovator Stories</h2>
+            <p>"Innovation distinguishes between a leader and a follower." – Steve Jobs</p>
+        </section>
+        <section id="art-design">
+            <h2>Art & Design</h2>
+            <p>"Creativity is intelligence having fun." – Albert Einstein</p>
+        </section>
+        <section id="creative-projects">
+            <h2>Creative Projects</h2>
+            <p>"Art is not what you see, but what you make others see." – Edgar Degas</p>
+        </section>
+        <section id="diy-guides">
+            <h2>DIY Guides</h2>
+            <p>"Creativity takes courage." – Henri Matisse</p>
+        </section>
+        <section id="community-forum">
+            <h2>Community Forum</h2>
+            <p>"Alone we can do so little; together we can do so much." – Helen Keller</p>
+        </section>
+        <section id="events-meetups">
+            <h2>Events & Meetups</h2>
+            <p>"The only way to do great work is to love what you do." – Steve Jobs</p>
+        </section>
+        <section id="expert-talks">
+            <h2>Expert Talks</h2>
+            <p>"An investment in knowledge pays the best interest." – Benjamin Franklin</p>
+        </section>
     </main>
     <footer>
-        <p>&copy; 2024 My Blog. All rights reserved.</p>
-        <div class="social-media">
-            <a href="#">Facebook</a>
-            <a href="#">Twitter</a>
-            <a href="#">Instagram</a>
-        </div>
+        <h2>Stay Ahead, Stay Inspired</h2>
+        <p>Follow us for the latest updates and trends in innovation and creativity.</p>
     </footer>
+    <script>
+        function showSection(sectionId) {
+            const sections = document.querySelectorAll('main section');
+            sections.forEach(section => {
+                if (section.id === sectionId) {
+                    section.classList.add('active');
+                } else {
+                    section.classList.remove('active');
+                }
+            });
+        }
+    </script>
 </body>
 </html>
