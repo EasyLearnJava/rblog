@@ -7,7 +7,43 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-   <div id="header"></div>
+    <header>
+        <h1>Discover the Future of Innovation and Creativity</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="#" onclick="showSection('home')">Home</a></li>
+            <li class="has-submenu">
+                <a href="#" onclick="showSection('innovate')">Salesforce Admin</a>
+                <ul class="submenu">
+                    <li class="has-submenu">
+                        <a href="#" onclick="showSection('tech-trends')">Basics</a>
+                        <ul class="submenu">
+                            <li><a href="admin/basics/relationship.html">Relationships</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#" onclick="showSection('future-insights')">Future Insights</a></li>
+                    <li><a href="#" onclick="showSection('innovator-stories')">Innovator Stories</a></li>
+                </ul>
+            </li>
+            <li class="has-submenu">
+                <a href="#" onclick="showSection('create')">Create</a>
+                <ul class="submenu">
+                    <li><a href="#" onclick="showSection('art-design')">Art & Design</a></li>
+                    <li><a href="#" onclick="showSection('creative-projects')">Creative Projects</a></li>
+                    <li><a href="#" onclick="showSection('diy-guides')">DIY Guides</a></li>
+                </ul>
+            </li>
+            <li class="has-submenu">
+                <a href="#" onclick="showSection('connect')">Connect</a>
+                <ul class="submenu">
+                    <li><a href="#" onclick="showSection('community-forum')">Community Forum</a></li>
+                    <li><a href="#" onclick="showSection('events-meetups')">Events & Meetups</a></li>
+                    <li><a href="#" onclick="showSection('expert-talks')">Expert Talks</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
     <main>
         <section id="home" class="active">
             <h2>Welcome to Our Innovative Website</h2>
@@ -54,17 +90,11 @@
             <p>"An investment in knowledge pays the best interest." – Benjamin Franklin</p>
         </section>
     </main>
-    <div id="footer"></div>
+    <footer>
+        <h2>Stay Ahead, Stay Inspired</h2>
+        <p>Follow us for the latest updates and trends in innovation and creativity.</p>
+    </footer>
     <script>
-        function loadHTML(elementId, url) {
-            fetch(url)
-                .then(response => response.text())
-                .then(data => document.getElementById(elementId).innerHTML = data);
-        }
-
-        loadHTML('header', 'header.html');
-        loadHTML('footer', 'footer.html');
-
         function showSection(sectionId) {
             const sections = document.querySelectorAll('main section');
             sections.forEach(section => {
