@@ -7,17 +7,17 @@
     <link rel="stylesheet" href="../../styles.css">
 </head>
 <body>
-     <header>
+    <header>
         <h1>Discover the Future of Innovation and Creativity</h1>
     </header>
     <nav>
         <ul>
-            <li><a href="#" onclick="showSection('home')">Home</a></li>
+            <li><a href="https://easylearnjava.github.io/rblog/">Home</a></li>
             <li class="has-submenu">
-                <a href="#" onclick="showSection('innovate')">Innovate</a>
+                <a href="#" onclick="showSection('innovate')">Salesforce Admin</a>
                 <ul class="submenu">
                     <li class="has-submenu">
-                        <a href="#" onclick="showSection('tech-trends')">Tech Trends</a>
+                        <a href="#" onclick="showSection('tech-trends')">Basics</a>
                         <ul class="submenu">
                             <li><a href="admin.html">Admin</a></li>
                         </ul>
@@ -44,48 +44,48 @@
             </li>
         </ul>
     </nav>
-    <main>
-          <section id="admin" class="active">
+    <main class="container">
+        <section id="admin" class="active">
             <h2>Hello</h2>
             <p>Welcome to the admin page!</p>
             <h3>Types of Relationships in Salesforce</h3>
-            <ul class="relationship-list">
-                <li>
-                    <strong>Lookup Relationship:</strong>
+            <div class="placeholders">
+                <div class="placeholder">
+                    <h4>Lookup Relationship</h4>
                     <ul>
                         <li><em>Real-world:</em> A student enrolls in multiple clubs, and each club can have multiple students.</li>
                         <li><em>Salesforce:</em> A custom object (Student) can have a lookup relationship to another custom object (Club), where each Student record can reference multiple Clubs and vice versa.</li>
                     </ul>
-                </li>
-                <li>
-                    <strong>Master-Detail Relationship:</strong>
+                </div>
+                <div class="placeholder">
+                    <h4>Master-Detail Relationship</h4>
                     <ul>
                         <li><em>Real-world:</em> A course has multiple assignments, and each assignment is tied to a specific course.</li>
                         <li><em>Salesforce:</em> A Course (Master) and Assignment (Detail), where deleting the Course deletes the associated Assignments.</li>
                     </ul>
-                </li>
-                <li>
-                    <strong>Many-to-Many Relationship:</strong>
+                </div>
+                <div class="placeholder">
+                    <h4>Many-to-Many Relationship</h4>
                     <ul>
                         <li><em>Real-world:</em> Students enrolling in multiple courses and courses having multiple students.</li>
                         <li><em>Salesforce:</em> A junction object (Enrollment) connecting Students and Courses custom objects, allowing multiple students to enroll in multiple courses.</li>
                     </ul>
-                </li>
-                <li>
-                    <strong>Self Relationship:</strong>
+                </div>
+                <div class="placeholder">
+                    <h4>Self Relationship</h4>
                     <ul>
                         <li><em>Real-world:</em> A student who can refer other students within the same college.</li>
                         <li><em>Salesforce:</em> A Student object with a lookup relationship to itself to show mentor-mentee relationships among students.</li>
                     </ul>
-                </li>
-                <li>
-                    <strong>Hierarchical Relationship:</strong>
+                </div>
+                <div class="placeholder">
+                    <h4>Hierarchical Relationship</h4>
                     <ul>
                         <li><em>Real-world:</em> A college organizational chart showing how different departments report to the dean.</li>
                         <li><em>Salesforce:</em> A special lookup relationship available only for the User object to create a management hierarchy, such as Department Heads reporting to the Dean.</li>
                     </ul>
-                </li>
-            </ul>
+                </div>
+            </div>
         </section>
     </main>
     <footer>
@@ -94,14 +94,16 @@
     </footer>
 
     <script>
-        function loadHTML(elementId, url) {
-            fetch(url)
-                .then(response => response.text())
-                .then(data => document.getElementById(elementId).innerHTML = data);
+        function showSection(sectionId) {
+            const sections = document.querySelectorAll('main section');
+            sections.forEach(section => {
+                if (section.id === sectionId) {
+                    section.classList.add('active');
+                } else {
+                    section.classList.remove('active');
+                }
+            });
         }
-
-        loadHTML('header', 'header.html');
-        loadHTML('footer', 'footer.html');
     </script>
 </body>
 </html>
