@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Math Challenge</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    <style>
+        .container {
+            padding: 2rem;
+        }
+        .math-problem {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .feedback {
+            margin-top: .1rem;
+        }
+        .score {
+            font-size: 1rem;
+            margin-top: 1rem;
+        }
+        .placeholders {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: .2rem;
+            flex-wrap: wrap;
+        }
+        .placeholder {
+            flex: 1;
+            min-width: 200px;
+            background-color: #e0e0e0;
+            padding: 1rem;
+            text-align: center;
+        }
+        @media (max-width: 768px) {
+            .placeholders {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="container-fluid">
+        <ul>
+            <li><strong>Math Challenge</strong></li>
+        </ul>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#" role="button">Start</a></li>
+        </ul>
+    </nav>
+    <main class="container">
+        <div >
+            
+                <hgroup>
+                    <h2>Welcome to Math Challenge</h2>
+                    <h3>Sharpen your math skills!</h3>
+                </hgroup>
+            
+        </div>
+        <div class="placeholders">
+            <div class="placeholder">
+                <h3>Math Problem</h3>
+                <p class="math-problem" id="mathProblem">5 + 3 = ?</p>
+                <input type="text" id="answer" name="answer" placeholder="Enter your answer" required />
+                <button type="button" onclick="checkAnswer()">Submit</button>
+                <p class="feedback" id="feedback"></p>
+                <button type="button" onclick="generateProblem()">Next</button>
+                <p class="score" id="score">Score: 0</p>
+            </div>
+            <div class="placeholder">
+                <h3>Timed Math Challenge</h3>
+                <p id="timer">Time: 60</p>
+                <p class="math-problem" id="timedMathProblem">5 + 3 = ?</p>
+                <input type="text" id="timedAnswer" name="timedAnswer" placeholder="Enter your answer" required disabled />
+                <button type="button" id="startButton" onclick="startTimedChallenge()">Start</button>
+                <button type="button" id="timedSubmitButton" onclick="checkTimedAnswer()" disabled>Submit</button>
+                <p class="feedback" id="timedFeedback"></p>
+                <p class="score" id="timedScore">Score: 0</p>
+            </div>
+            <div class="placeholder">
+                <h3>Harder Timed Math Challenge</h3>
+                <p id="hardTimer">Time: 60</p>
+                <p class="math-problem" id="hardMathProblem">23 + 47 = ?</p>
+                <input type="text" id="hardAnswer" name="hardAnswer" placeholder="Enter your answer" required disabled />
+                <button type="button" id="hardStartButton" onclick="startHardChallenge()">Start</button>
+                <button type="button" id="hardSubmitButton" onclick="checkHardAnswer()" disabled>Submit</button>
+                <p class="feedback" id="hardFeedback"></p>
+                <p class="score" id="hardScore">Score: 0</p>
+            </div>
+        </div>
+    </main>
+    <section aria-label="Subscribe example">
+        <div class="container">
+            <article>
+                <hgroup>
+                    <h2>Stay Updated</h2>
+                    <h3>Subscribe to get the latest math challenges</h3>
+                </hgroup>
+                <form class="grid">
+                    <input type="text" id="firstname" name="firstname" placeholder="First Name" aria-label="First Name" required />
+                    <input type="email" id="email" name="email" placeholder="Email Address" aria-label="Email Address" required />
+                    <button type="submit" onclick="event.preventDefault()">Subscribe</button>
+                </form>
+            </article>
+        </div>
+    </section>
+    <footer class="container">
+        <small><a href="#">Privacy Policy</a> • <a href="#">Terms of Service</a></small>
+    </footer>
+
+    <script>
+        let correctAnswer;
+        let score = 0;
+        let answered = false;
+
+        let timedCorrectAnswer;
+        let timedScore = 0;
+        let timedAnswered = false;
+        let timer;
+        let timeLeft = 60;
+
+        let hardCorrectAnswer;
+        let hardScore = 0;
+        let hardAnswered = false;
+        let hardTimer;
+        let hardTimeLeft = 60;
+
+        function generateProblem() {
+            const operators = ['+', '-', '*', '/'];
+            const num1 = Math.floor(Math.random() * 10) + 1;
+            const num2 = Math.floor(Math.random() * 10) + 1;
+            const operator = operators[Math.floor(Math.random() * operators.length)];
+            const problem = `${num1} ${operator} ${num2} = ?`;
+            
+            document.getElementById('mathProblem').textContent = problem;
+            document.getElementById('answer').value = '';
+            document.getElementById('feedback').textContent = '';
+            answered = false;
+
+            switch (operator) {
+                case '+':
+                    correctAnswer = num1 + num2;
+                    break;
+                case '-':
+                    correctAnswer = num1 - num2;
+                    break;
+                case '*':
+                    correctAnswer = num1 * num2;
+                    break;
+                case '/':
+                    correctAnswer = (num1 / num2).toFixed(2);
+                    break;
+            }
+        }
+
+        function checkAnswer() {
+            const feedback = document.getElementById('feedback');
+            const scoreDisplay = document.getElementById('score');
+
+            if (answered) {
+                feedback.style.color = 'red';
+                feedback.textContent = 'You have already answered. Please click "Next" for a new problem.';
+                return;
+            }
+
+            const userAnswer = document.getElementById('answer').value;
+
+            if (parseFloat(userAnswer) == parseFloat(correctAnswer)) {
+                feedback.style.color = 'green';
+                feedback.textContent = 'Correct! Well done.';
+                score++;
+            } else {
+                feedback.style.color = 'red';
+                feedback.textContent = `Wrong! The correct answer is ${correctAnswer}.`;
+                score--;
+            }
+
+            scoreDisplay.textContent = `Score: ${score}`;
+            answered = true;
+        }
+
+        function generateTimedProblem() {
+            const operators = ['+', '-', '*', '/'];
+            const num1 = Math.floor(Math.random() * 10) + 1;
+            const num2 = Math.floor(Math.random() * 10) + 1;
+            const operator = operators[Math.floor(Math.random() * operators.length)];
+            const problem = `${num1} ${operator} ${num2} = ?`;
+            
+            document.getElementById('timedMathProblem').textContent = problem;
+            document.getElementById('timedAnswer').value = '';
+            document.getElementById('timedFeedback').textContent = '';
+            timedAnswered = false;
+
+            switch (operator) {
+                case '+':
+                    timedCorrectAnswer = num1 + num2;
+                    break;
+                case '-':
+                    timedCorrectAnswer = num1 - num2;
+                    break;
+                case '*':
+                    timedCorrectAnswer = num1 * num2;
+                    break;
+                case '/':
+                    timedCorrectAnswer = (num1 / num2).toFixed(2);
+                    break;
+            }
+        }
+
+        function startTimedChallenge() {
+            document.getElementById('timedAnswer').disabled = false;
+            document.getElementById('timedSubmitButton').disabled = false;
+            document.getElementById('startButton').style.display = 'none';
+            timeLeft = 60;
+            timedScore = 0;
+            document.getElementById('timer').textContent = `Time: ${timeLeft}`;
+            document.getElementById('timedScore').textContent = `Score: ${timedScore}`;
+            timer = setInterval(updateTimer, 1000);
+            generateTimedProblem();
+        }
+
+        function updateTimer() {
+            if (timeLeft <= 0) {
+                clearInterval(timer);
+                document.getElementById('timedAnswer').disabled = true;
+                document.getElementById('timedSubmitButton').disabled = true;
+                document.getElementById('startButton').style.display = 'inline-block';
+                document.getElementById('timedFeedback').textContent = 'Time is up!';
+            } else {
+                timeLeft--;
+                document.getElementById('timer').textContent = `Time: ${timeLeft}`;
+            }
+        }
+
+        function checkTimedAnswer() {
+            const feedback = document.getElementById('timedFeedback');
+            const scoreDisplay = document.getElementById('timedScore');
+
+            if (timedAnswered) {
+                feedback.style.color = 'red';
+                feedback.textContent = 'You have already answered. Please click "Next" for a new problem.';
+                return;
+            }
+
+            const userAnswer = document.getElementById('timedAnswer').value;
+
+            if (parseFloat(userAnswer) == parseFloat(timedCorrectAnswer)) {
+                feedback.style.color = 'green';
+                feedback.textContent = 'Correct! Well done.';
+                timedScore++;
+            } else {
+                feedback.style.color = 'red';
+                feedback.textContent = `Wrong! The correct answer is ${timedCorrectAnswer}.`;
+                timedScore--;
+            }
+
+            scoreDisplay.textContent = `Score: ${timedScore}`;
+            timedAnswered = true;
+            generateTimedProblem();
+        }
+
+        function generateHardProblem() {
+            const operators = ['+', '-', '*', '/'];
+            const num1 = Math.floor(Math.random() * 90) + 10; // two-digit number
+            const num2 = Math.floor(Math.random() * 90) + 10; // two-digit number
+            const operator = operators[Math.floor(Math.random() * operators.length)];
+            const problem = `${num1} ${operator} ${num2} = ?`;
+            
+            document.getElementById('hardMathProblem').textContent = problem;
+            document.getElementById('hardAnswer').value = '';
+            document.getElementById('hardFeedback').textContent = '';
+            hardAnswered = false;
+
+            switch (operator) {
+                case '+':
+                    hardCorrectAnswer = num1 + num2;
+                    break;
+                case '-':
+                    hardCorrectAnswer = num1 - num2;
+                    break;
+                case '*':
+                    hardCorrectAnswer = num1 * num2;
+                    break;
+                case '/':
+                    hardCorrectAnswer = (num1 / num2).toFixed(2);
+                    break;
+            }
+        }
+
+        function startHardChallenge() {
+            document.getElementById('hardAnswer').disabled = false;
+            document.getElementById('hardSubmitButton').disabled = false;
+            document.getElementById('hardStartButton').style.display = 'none';
+            hardTimeLeft = 60;
+            hardScore = 0;
+            document.getElementById('hardTimer').textContent = `Time: ${hardTimeLeft}`;
+            document.getElementById('hardScore').textContent = `Score: ${hardScore}`;
+            hardTimer = setInterval(updateHardTimer, 1000);
+            generateHardProblem();
+        }
+
+        function updateHardTimer() {
+            if (hardTimeLeft <= 0) {
+                clearInterval(hardTimer);
+                document.getElementById('hardAnswer').disabled = true;
+                document.getElementById('hardSubmitButton').disabled = true;
+                document.getElementById('hardStartButton').style.display = 'inline-block';
+                document.getElementById('hardFeedback').textContent = 'Time is up!';
+            } else {
+                hardTimeLeft--;
+                document.getElementById('hardTimer').textContent = `Time: ${hardTimeLeft}`;
+            }
+        }
+
+        function checkHardAnswer() {
+            const feedback = document.getElementById('hardFeedback');
+            const scoreDisplay = document.getElementById('hardScore');
+
+            if (hardAnswered) {
+                feedback.style.color = 'red';
+                feedback.textContent = 'You have already answered. Please click "Next" for a new problem.';
+                return;
+            }
+
+            const userAnswer = document.getElementById('hardAnswer').value;
+
+            if (parseFloat(userAnswer) == parseFloat(hardCorrectAnswer)) {
+                feedback.style.color = 'green';
+                feedback.textContent = 'Correct! Well done.';
+                hardScore++;
+            } else {
+                feedback.style.color = 'red';
+                feedback.textContent = `Wrong! The correct answer is ${hardCorrectAnswer}.`;
+                hardScore--;
+            }
+
+            scoreDisplay.textContent = `Score: ${hardScore}`;
+            hardAnswered = true;
+            generateHardProblem();
+        }
+
+        window.onload = generateProblem;
+    </script>
+</body>
+</html>
