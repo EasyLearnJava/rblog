@@ -191,6 +191,30 @@ footer p {
         .placeholder h4 {
             margin-top: 0;
         }
+		
+		 table {
+            border-collapse: collapse;
+            margin: 10px;
+            font-size: 10px;
+            text-align: left;
+			border: 2px solid black;
+        }
+        th, td {
+            padding: 5px;
+            border: 2px solid black;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+		.table-title {
+            font-size: 14px;
+			font-weight: bold;
+            text-decoration: underline;
+        }
+		.container {
+            display: flex;
+            justify-content: flex-start;
+        }
 
 /* Responsive Design */
 @media (max-width: 768px) {
