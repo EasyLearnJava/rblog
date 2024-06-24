@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin</title>
     <link rel="stylesheet" href="../../styles.css">
+	<style>
+       
+    </style>
 </head>
 <body>
     <header>
@@ -53,9 +56,89 @@
                 <div class="placeholder">
                     <h4>Lookup Relationship</h4>
                     <ul>
-                        <li><em>Real-world:</em> A student enrolls in multiple clubs, and each club can have multiple students.</li>
-                        <li><em>Salesforce:</em> A custom object (Student) can have a lookup relationship to another custom object (Club), where each Student record can reference multiple Clubs and vice versa.</li>
+                        <li><em>Real-world:</em> A club can have multiple students enrolled in it.</li>
+                        <li><em>Salesforce:</em> A custom object (Student) can have a lookup relationship to another custom object (Club), where each Student record can hold a reference to a Club.</li>
                     </ul>
+					<h4>Features</h4>
+                    <ul>
+                        <li><em>Optional Association:</em> Records in one object can reference records in another object, but this reference is optional.</li>
+                        <li><em>Independent Records:</em> The objects involved in a lookup relationship are not tightly coupled. Deleting one record does not automatically delete the related record.</li>
+                    </ul>
+					<h4>Example</h4>
+					
+					
+					 <div class="container">
+        
+        <div class="table-container">
+            <div class="table-title">Clubs</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Club ID</th>
+                        <th>Club Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>101</td>
+                        <td>Science Club</td>
+                    </tr>
+                    <tr>
+                        <td>102</td>
+                        <td>Art Club</td>
+                    </tr>
+                    <tr>
+                        <td>103</td>
+                        <td>Music Club</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+		<div class="table-container">
+            <div class="table-title">Student</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Student ID</th>
+                        <th>Student Name</th>
+                        <th>Club ID</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Alice</td>
+                        <td>101</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Bob</td>
+                        <td>102</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Charlie</td>
+                        <td>101</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Diana</td>
+                        <td>103</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>Edward</td>
+                        <td>NULL</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+				<h4>SOQL Queries</h4>
+				<ul>
+				<li><em>Scenario:</em> Query students and the clubs they are associated with.</li>				
+				<div  class="code-snippet">SELECT Id, Name, Club__r.Name FROM Student__c</div>				
+				</ul>				
                 </div>
                 <div class="placeholder">
                     <h4>Master-Detail Relationship</h4>
@@ -63,6 +146,85 @@
                         <li><em>Real-world:</em> A course has multiple assignments, and each assignment is tied to a specific course.</li>
                         <li><em>Salesforce:</em> A Course (Master) and Assignment (Detail), where deleting the Course deletes the associated Assignments.</li>
                     </ul>
+					<h4>Features</h4>
+                    <ul>
+                        <li><em>Tightly Coupled Records:</em> The child record (detail) is tightly linked to the parent record (master). The child record cannot exist without the parent.</li>
+                        <li><em>Cascading Deletes:</em> Deleting the parent record also deletes all related child records.</li>
+						<li><em>Roll-Up Summary Fields:</em> The parent record can have roll-up summary fields that aggregate data from the child records (e.g., count, sum, min, max).</li>
+						<li><em>Ownership and Sharing:</em> The child record inherits the sharing and security settings of the parent record.</li>
+                    </ul>
+					<h4>Example</h4>
+					<div class="container">
+        <div class="table-container">
+            <div class="table-title">Courses</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Course ID</th>
+                        <th>Course Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>201</td>
+                        <td>Mathematics</td>
+                    </tr>
+                    <tr>
+                        <td>202</td>
+                        <td>History</td>
+                    </tr>
+                    <tr>
+                        <td>203</td>
+                        <td>Physics</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="table-container">
+            <div class="table-title">Assignments</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Assignment ID</th>
+                        <th>Assignment Name</th>
+                        <th>Course ID</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>301</td>
+                        <td>Algebra Homework</td>
+                        <td>201</td>
+                    </tr>
+                    <tr>
+                        <td>302</td>
+                        <td>Geometry Quiz</td>
+                        <td>201</td>
+                    </tr>
+                    <tr>
+                        <td>303</td>
+                        <td>WWII Essay</td>
+                        <td>202</td>
+                    </tr>
+                    <tr>
+                        <td>304</td>
+                        <td>Physics Lab Report</td>
+                        <td>203</td>
+                    </tr>
+                    <tr>
+                        <td>305</td>
+                        <td>Calculus Project</td>
+                        <td>201</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+	<h4>SOQL Queries</h4>
+				<ul>
+				<li><em>Scenario:</em> Query courses and their related assignments.</li>				
+				<div  class="code-snippet">SELECT Id, Name, (SELECT Id, Name FROM Assignments__r) FROM Course__c</div>				
+				</ul>
                 </div>
                 <div class="placeholder">
                     <h4>Many-to-Many Relationship</h4>
@@ -70,6 +232,129 @@
                         <li><em>Real-world:</em> Students enrolling in multiple courses and courses having multiple students.</li>
                         <li><em>Salesforce:</em> A junction object (Enrollment) connecting Students and Courses custom objects, allowing multiple students to enroll in multiple courses.</li>
                     </ul>
+					<h4>Features</h4>
+                    <ul>
+                        <li><em>Junction Object:</em> A third object (junction object) is used to create a many-to-many relationship between two objects.</li>
+                        <li><em>Bidirectional Relationship:</em> Each record in one object can be related to multiple records in another object, and vice versa.</li>
+						<li><em>Independent Child Records:</em> Child records in the junction object can reference multiple parent records from both related objects.</li>
+                    </ul>
+					<h4>Example</h4>
+					<div class="container">
+        <div class="table-container">
+            <div class="table-title">Students</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Student ID</th>
+                        <th>Student Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Alice</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Bob</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Charlie</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Diana</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>Edward</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="table-container">
+            <div class="table-title">Courses</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Course ID</th>
+                        <th>Course Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>201</td>
+                        <td>Mathematics</td>
+                    </tr>
+                    <tr>
+                        <td>202</td>
+                        <td>History</td>
+                    </tr>
+                    <tr>
+                        <td>203</td>
+                        <td>Physics</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="table-container">
+            <div class="table-title">Enrollments</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Enrollment ID</th>
+                        <th>Student ID</th>
+                        <th>Course ID</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>401</td>
+                        <td>1</td>
+                        <td>201</td>
+                    </tr>
+                    <tr>
+                        <td>402</td>
+                        <td>2</td>
+                        <td>201</td>
+                    </tr>
+                    <tr>
+                        <td>403</td>
+                        <td>1</td>
+                        <td>202</td>
+                    </tr>
+                    <tr>
+                        <td>404</td>
+                        <td>3</td>
+                        <td>202</td>
+                    </tr>
+                    <tr>
+                        <td>405</td>
+                        <td>4</td>
+                        <td>203</td>
+                    </tr>
+                    <tr>
+                        <td>406</td>
+                        <td>5</td>
+                        <td>203</td>
+                    </tr>
+                    <tr>
+                        <td>407</td>
+                        <td>2</td>
+                        <td>203</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+	<h4>SOQL Queries</h4>
+				<ul>
+				<li><em>Scenario:</em> Query students and the courses they are enrolled in using the junction object.</li>				
+				<div  class="code-snippet">SELECT Id, Name, (SELECT Course__r.Id, Course__r.Name FROM Enrollments__r) FROM Student__c</div>	
+				<li><em>Scenario:</em> Query courses and the students enrolled in them.</li>				
+				<div  class="code-snippet">SELECT Id, Name, (SELECT Student__r.Id, Student__r.Name FROM Enrollments__r) FROM Course__c</div>					
+				</ul>
                 </div>
                 <div class="placeholder">
                     <h4>Self Relationship</h4>
@@ -77,14 +362,132 @@
                         <li><em>Real-world:</em> A student who can refer other students within the same college.</li>
                         <li><em>Salesforce:</em> A Student object with a lookup relationship to itself to show mentor-mentee relationships among students.</li>
                     </ul>
+					<h4>Features</h4>
+                    <ul>
+                        <li><em>Hierarchical Structure:</em> Allows records within the same object to reference each other, creating a hierarchical relationship.</li>
+                        <li><em>Complex Queries:</em> Supports queries and reports that require hierarchical data structures.</li>
+						<li><em>Flexibility:</em> Can represent various real-world hierarchical relationships within a single object.</li>
+                    </ul>
+					<h4>Example</h4>
+					<div class="container">
+        <div class="table-container">
+            <div class="table-title">Students</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Student ID</th>
+                        <th>Student Name</th>
+                        <th>Mentor ID</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Alice</td>
+                        <td>2</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Bob</td>
+                        <td>3</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Charlie</td>
+                        <td>NULL</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Diana</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>Edward</td>
+                        <td>2</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+	<h4>SOQL Queries</h4>
+				<ul>
+				<li><em>Scenario:</em> Query students and their mentors (students who referred them).</li>				
+				<div  class="code-snippet">SELECT Id, Name, Mentor__r.Name FROM Student__c</div>				
+				</ul>
                 </div>
+                
                 <div class="placeholder">
                     <h4>Hierarchical Relationship</h4>
                     <ul>
                         <li><em>Real-world:</em> A college organizational chart showing how different departments report to the dean.</li>
                         <li><em>Salesforce:</em> A special lookup relationship available only for the User object to create a management hierarchy, such as Department Heads reporting to the Dean.</li>
                     </ul>
+					<h4>Features</h4>
+                    <ul>
+                        <li><em>User Object Specific:</em> Only available for the User object in Salesforce.</li>
+                        <li><em>Hierarchical Data:</em> Allows for the creation of hierarchical data structures, such as management hierarchies.</li>
+						<li><em>Reporting and Queries:</em> Supports reporting and queries that require hierarchical data structures, such as organizational charts.</li>
+                    </ul>
+					<h4>Example</h4>
+					 <div class="container">
+        <div class="table-container">
+            <div class="table-title">Users</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>User ID</th>
+                        <th>User Name</th>
+                        <th>Manager ID</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>101</td>
+                        <td>Dean John</td>
+                        <td>NULL</td>
+                    </tr>
+                    <tr>
+                        <td>102</td>
+                        <td>Head of Science</td>
+                        <td>101</td>
+                    </tr>
+                    <tr>
+                        <td>103</td>
+                        <td>Head of Arts</td>
+                        <td>101</td>
+                    </tr>
+                    <tr>
+                        <td>104</td>
+                        <td>Head of Music</td>
+                        <td>101</td>
+                    </tr>
+                    <tr>
+                        <td>105</td>
+                        <td>Science Faculty</td>
+                        <td>102</td>
+                    </tr>
+                    <tr>
+                        <td>106</td>
+                        <td>Arts Faculty</td>
+                        <td>103</td>
+                    </tr>
+                    <tr>
+                        <td>107</td>
+                        <td>Music Faculty</td>
+                        <td>104</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+	<h4>SOQL Queries</h4>
+				<ul>
+				<li><em>Scenario:</em> Query users and their managers.</li>				
+				<div  class="code-snippet">SELECT Id, Name, Manager__r.Name FROM User</div>				
+				</ul>
                 </div>
+                
             </div>
         </section>
     </main>
